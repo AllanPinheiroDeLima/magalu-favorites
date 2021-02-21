@@ -1,0 +1,38 @@
+version: '2'
+services:
+  mysql:
+    image: mysql:5.7
+    networks:
+      - magalu
+    restart: always
+    environment:
+      MYSQL_USER: 'magalu_user'
+      MYSQL_DATABASE: 'magalu'
+      MYSQL_PASSWORD: 'PXykp8TY6E8pgMcy'
+      MYSQL_ROOT_PASSWORD: 'aR6DcWfZkcLYWaar'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+  nest:
+    image: node:12
+    depends_on:
+      - mysql
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    env_file: ".env"
+    volumes:
+      - ".:/usr/src/app/"
+      - "./node_modules/:/usr/src/app/node_modules/"
+    networks:
+      - magalu
+    restart: always
+    ports:
+      - '3000:3000'
+      - '9229:9229'
+    expose:
+      - '80'
+networks:
+  magalu:
+    driver: bridge

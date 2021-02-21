@@ -1,0 +1,24 @@
+{
+  "type": "mysql",
+  "host": "localhost",
+  "port": 3306,
+  "username": "magalu_user",
+  "database": "magalu",
+  "password": "PXykp8TY6E8pgMcy",
+  "synchronize": false,
+  "logging": false,
+  "entities": [
+    "src/entity/**/*.ts"
+  ],
+  "migrations": [
+    "src/migrations/*.ts"
+  ],
+  "subscribers": [
+    "src/subscriber/**/*.ts"
+  ],
+  "cli": {
+    "entitiesDir": "src/entity",
+    "migrationsDir": "src/migrations",
+    "subscribersDir": "src/subscriber"
+  }
+}
