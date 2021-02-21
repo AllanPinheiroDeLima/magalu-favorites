@@ -85,3 +85,4 @@ pelo recrutador. Ele fica disponível em `http://localhost:3000/swagger`
 disponibilizei um yaml com as definições no endereço `http://localhost:3000/swagger-json`
 6. Apesar de não ser necessário, eu fiz um pequeno front-end para testes, por isso habilitei o CORS
 7. Eu habilitei algumas outras funcionalidades de segurança: [*rate-limiting*](https://www.npmjs.com/package/express-rate-limit) e [*helmet*](https://www.npmjs.com/package/helmet) são as principais
+8. Eu adicionei um arquivo do travis pra exemplificar como ficam os testes com integração contínua
