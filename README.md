@@ -47,13 +47,19 @@ $ npm run start:dev
 
 ## Testes unitários
 
-## Test
 O desafio não especificava, mas um dos assuntos que conversamos foram testes unitários, então 
 deixei uma pasta com alguns testes para visualizar de exemplo. Para rodar os testes, o comando abaixo 
 deve ser executado
 
+### Com Docker
 ```bash
 $ docker-compose -f docker-compose.test.yaml up
+```
+
+### Sem Docker
+```bash
+$ npm install # esse passo não é necessário se já tiver sido feito ao rodar o projeto
+$ npm run test
 ```
 
 ## Considerações
