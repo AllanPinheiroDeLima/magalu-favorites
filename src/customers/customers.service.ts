@@ -4,15 +4,11 @@ import { ProductsService } from '../products/products.service';
 import { Repository } from 'typeorm';
 import { CreateCustomerDto, UpdateCustomerDto } from './dto/customer.dto';
 import { Customer } from './entities/customer.entity';
-import { Favorite } from './entities/favorites.entity';
-
 @Injectable()
 export class CustomersService {
   constructor (
     @InjectRepository(Customer)
     private readonly customerRepository: Repository<Customer>,
-    @InjectRepository(Favorite)
-    private readonly favoriteRepository: Repository<Favorite>,
     private readonly productsService: ProductsService
   ) {}
   
@@ -83,35 +79,5 @@ export class CustomersService {
   async remove(id: number) {
     const customer = await this.findOne(id);
     return this.customerRepository.remove(customer);
-  }
-
-  async addFavoriteToCustomer (customerId: number, productId: string) {
-    const customer = await this.findOne(customerId);
-
-    const product = await this.productsService.findOne(productId);
-
-    const productIsInList = customer.favorites
-    .find(favorite => favorite.product_id === productId);
-
-    if (productIsInList) {
-      throw new ConflictException("Product already is in your favorite's list")
-    }
-
-    const favorite = new Favorite()
-    favorite.customer = customer;
-    favorite.product_id = product.id;
-
-    await this.favoriteRepository.save(favorite);
-  }
-
-  async removeFavoriteFromList (customerId: number, productId: string) {
-    const favorite = await this.favoriteRepository.findOne({
-      where: {
-        customer: { id: customerId },
-        product_id: productId
-      }
-    });
-
-    await this.favoriteRepository.remove(favorite);
   }
 }

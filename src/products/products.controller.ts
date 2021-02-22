@@ -12,9 +12,8 @@ export class ProductsController {
   @ApiResponse({ type: PaginateResponse })
   @ApiQuery({ name: "page", type: ProductQueryDTO })
   async findAll(@Query() query: ProductQueryDTO) {
-    console.log(query)
     const { page } = query;
-    return this.productsService.findAll(Number(page));
+    return this.productsService.findAll(page);
   }
 
   @Get(':id')

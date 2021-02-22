@@ -9,9 +9,10 @@ export class ProductsService {
   ) {}
 
   async findAll(page: number = 1) {
+    console.log("find all", page)
     const { data: products } = await this.httpService.get(`/?page=${page}`)
-      .toPromise()
-
+    .toPromise();
+    
     return products
   }
 

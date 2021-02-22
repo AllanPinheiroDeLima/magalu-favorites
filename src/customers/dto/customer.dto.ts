@@ -16,11 +16,7 @@ export class CreateCustomerDto {
     password: string
 }
 
-export class FavoriteParams {
-    @ApiProperty()
-    @IsString()
-    id: number
-    
+export class FavoriteParams {    
     @ApiProperty()
     @IsString()
     product_id: string

@@ -4,6 +4,7 @@ import { ConfigModule } from "@nestjs/config";
 import { CustomersModule } from './customers/customers.module';
 import { ProductsModule } from './products/products.module';
 import { AuthModule } from './auth/auth.module';
+import { FavoritesModule } from './favorites/favorites.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { AuthModule } from './auth/auth.module';
     }),
     CustomersModule,
     ProductsModule,
-    AuthModule
+    AuthModule,
+    FavoritesModule
   ],
   controllers: [],
   providers: []
