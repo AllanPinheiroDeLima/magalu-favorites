@@ -16,7 +16,7 @@ export class CustomersService {
     private readonly productsService: ProductsService
   ) {}
   
-  private findCustomerByEmail (email: string) {
+  async findCustomerByEmail (email: string) {
     return this.customerRepository.findOne({ email })
   }
 
