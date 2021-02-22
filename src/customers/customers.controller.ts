@@ -1,5 +1,7 @@
-import { Controller, Get, Post, Body, Put, Param, Delete, HttpCode } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, HttpCode, UseGuards } from '@nestjs/common';
 import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { CanManage } from '../auth/decorators/canManageProfile';
+import { JwtAuthGuard } from '../auth/guards/jwtAuth.guard';
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto, CustomerResponse, FavoriteParams, IdParamDTO, SimpleCustomerResponse, UpdateCustomerDto } from './dto/customer.dto';
 
@@ -14,12 +16,14 @@ export class CustomersController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   @ApiResponse({ type: [SimpleCustomerResponse] })
   findAll() {
     return this.customersService.findAll();
   }
   
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
   @ApiParam({ name: "id" })
   @ApiResponse({ type: [CustomerResponse] })
   findOne(@Param() params: IdParamDTO) {
@@ -28,6 +32,7 @@ export class CustomersController {
   }
 
   @Put(':id')
+  @UseGuards(JwtAuthGuard, CanManage)
   @ApiParam({ name: "id" })
   @HttpCode(204)
   update(@Param() params: IdParamDTO, @Body() updateCustomerDto: UpdateCustomerDto) {
@@ -38,12 +43,14 @@ export class CustomersController {
   @Delete(':id')
   @HttpCode(204)
   @ApiParam({ name: "id" })
+  @UseGuards(JwtAuthGuard, CanManage)
   remove(@Param() params: IdParamDTO) {
     const {id} = params;
     return this.customersService.remove(Number(id));
   }
 
   @Post(":id/favorites/:product_id")
+  @UseGuards(JwtAuthGuard, CanManage)
   @ApiParam({ name: "id" })
   @ApiParam({ name: "product_id" })
   @HttpCode(204)
@@ -54,6 +61,7 @@ export class CustomersController {
   }
 
   @Delete(":id/favorites/:product_id")
+  @UseGuards(JwtAuthGuard, CanManage)
   @ApiParam({ name: "id" })
   @ApiParam({ name: "product_id" })
   @HttpCode(204)
