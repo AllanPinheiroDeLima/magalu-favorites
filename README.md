@@ -44,6 +44,34 @@ Então você pode executar o projeto com os comandos:
 $ npm install 
 $ npm run start:dev
 ```
+## Reproduzindo os casos de uso do projeto
+Conforme o solicitado no desafio, existem as funcionalidades de autorização e autenticação. 
+Acho interessante notar que se vocês olharem no histórico de commits, vão poder observar que
+eu tive que fazer uma pequena refatoração para acomodar
+adequadamente o serviço. 
+
+*Disclaimer (Todas as rotas estão disponíveis na 
+rota [/swagger](http://localhost:3000/swagger) em seu localhost na porta 3000)*
+
+#### Criando usuário
+1. Crie dois usuários com os dados abaixo
+```json
+{
+    "email": "magalu@gmail.com",
+    "password": "magalu1",
+    "name": "Magalu Teste 1"
+}
+```
+2. Faça o login pela rota `/auth/login` usando o usuário e senha que foram criados
+
+#### Adicionando favoritos
+1. Para adicionar um produto à lista de favoritos do usuário, use a rota de `favorites`, 
+   lembrando de adicionar o header
+   `Authorization` com o valor `Bearer :seu_token` na requisição.
+Exemplo: `localhost:3000/favorites/af04c0ee-7137-4848-fd33-a2d148412095`
+2. Ao fazer um `GET` do usuário pela rota `/customers/:id`, você deve receber o usuário
+com a lista de favoritos. ( Ao fazer o `GET` em `/customers` a lista detalhada de favoritos
+   não é exibida. Está explicado nas considerações )
 
 ## Testes unitários
 
@@ -60,6 +88,13 @@ $ docker-compose -f docker-compose.test.yaml up
 ```bash
 $ npm install # esse passo não é necessário se já tiver sido feito ao rodar o projeto
 $ npm run test
+```
+
+## Cleanup
+
+```bash
+$ docker-compose down
+$ docker-compose -f docker-compose.test.yaml down
 ```
 
 ## Considerações
