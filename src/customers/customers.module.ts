@@ -12,6 +12,7 @@ import { ProductsModule } from '../products/products.module';
     ProductsModule
   ],
   controllers: [CustomersController],
-  providers: [CustomersService]
+  providers: [CustomersService],
+  exports: [CustomersService]
 })
 export class CustomersModule {}
